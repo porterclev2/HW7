@@ -6,14 +6,21 @@ package pizza;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Pizza {
     private List<Topping> toppings;
     private Size size;
+    private PizzaChain chain;
 
     private Pizza(Builder builder) {
         this.toppings = new ArrayList<>(builder.toppings);
         this.size = builder.size;
+        this.chain = builder.chain;
+    }
+
+    public PizzaChain getChain() {
+        return chain;
     }
 
     public List<Topping> getToppings() {
@@ -28,12 +35,18 @@ public class Pizza {
         String toppingList = toppings.isEmpty()
                 ? "no toppings"
                 : toppings.stream().map(Topping::toString).collect(Collectors.joining(", "));
-        System.out.printf("Eating a %s pizza with %d topping(s): %s%n", size, toppings.size(), toppingList);
+        System.out.printf("Eating a %s pizza from %s with %d topping(s): %s%n", size, chain, toppings.size(), toppingList);
     }
 
     public static class Builder {
         private List<Topping> toppings = new ArrayList<>();
         private Size size;
+        private PizzaChain chain;
+
+        public Builder(PizzaChain chain, Size size) {
+            this.chain = Objects.requireNonNull(chain, "Pizza chain must be set");
+            this.size = Objects.requireNonNull(size, "Pizza size must be set");
+        }
 
         private Builder addTopping(Topping topping) {
             toppings.add(topping);
