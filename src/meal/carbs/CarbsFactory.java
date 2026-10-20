@@ -1,14 +1,12 @@
 package meal.carbs;
 
 import java.util.List;
-
 import meal.FoodFactory;
 
-public final class CarbsFactory extends FoodFactory<Carbs> {
-    private static final CarbsFactory INSTANCE = new CarbsFactory();
+public class CarbsFactory extends FoodFactory<Carbs> {
+    private static CarbsFactory INSTANCE = new CarbsFactory();
 
-    private CarbsFactory() {
-    }
+    private CarbsFactory() {}
 
     public static CarbsFactory getInstance() {
         return INSTANCE;
